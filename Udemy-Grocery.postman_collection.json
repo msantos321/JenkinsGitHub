@@ -1,0 +1,1112 @@
+{
+	"info": {
+		"_postman_id": "cb0432e9-ecbe-4d4c-853b-d9264d0d5904",
+		"name": "Udemy-Grocery",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20935164"
+	},
+	"item": [
+		{
+			"name": "Get-Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.get(\"baseURL\");\r",
+							"\r",
+							"pm.globals.get(\"baseURL\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"  pm.test(\"Status code is 200\", function () {\r",
+							"        console.log (\"status response: \", pm.response)\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{groceryUrl}}",
+					"host": [
+						"{{groceryUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"    pm.test(\"Body matches string UP\", function () {\r",
+							"            pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{groceryUrl}}/status",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Product-All",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"    pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });\r",
+							"\r",
+							"     pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned text: \", pm.response.text());\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body result: \", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.value).to.eql();\r",
+							"    //console.log (\"Json Data \", jsonData);\r",
+							"    //pm.expect(pm.response.text()).to.include(\"dairy\");\r",
+							"    console.log (\"Json Data[0].id]: \", jsonData[0]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{groceryUrl}}/products?results=20",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "coffee",
+							"disabled": true
+						},
+						{
+							"key": "results",
+							"value": "20"
+						},
+						{
+							"key": "available",
+							"value": "false",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Product-One",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{groceryUrl}}/products/:productid",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"products",
+						":productid"
+					],
+					"variable": [
+						{
+							"key": "productid",
+							"value": "5478"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Cart-Items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{groceryUrl}}/carts/:cartId/items",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "ImjrvE4zOP3jkCmmyuo0H"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post-Authorization-Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientName\": \"MSantos\",\r\n    \"clientEmail\": \"msantos@mydomain.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{groceryUrl}}/api-clients",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"api-clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post-Product-Carts-CreateOne",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{groceryUrl}}/carts",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Product-Carts-GetOne",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{groceryUrl}}/carts/:cartId",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"carts",
+						":cartId"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "WdfPhz-dEwnY4-SYD_ZPb"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post-Product-Carts-Item-AddOne",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n \"productId\": 3674,\r\n  \"quantity\": 1\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{groceryUrl}}/carts/:cartId/items",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items"
+					],
+					"query": [
+						{
+							"key": "productid",
+							"value": "5478",
+							"description": "\"Low Fat Vanilla Yogurt\"",
+							"disabled": true
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "ImjrvE4zOP3jkCmmyuo0H"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete-Cart-Item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{groceryUrl}}/carts/:cartId/items/:itemId",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items",
+						":itemId"
+					],
+					"query": [
+						{
+							"key": "productid",
+							"value": "5478",
+							"description": "\"Low Fat Vanilla Yogurt\"",
+							"disabled": true
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "ImjrvE4zOP3jkCmmyuo0H"
+						},
+						{
+							"key": "itemId",
+							"value": "169511541"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch-CartItem-Qty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{myToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"quantity\": 23\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{groceryUrl}}/carts/:cartId/items/:itemId",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items",
+						":itemId"
+					],
+					"query": [
+						{
+							"key": "productid",
+							"value": "5478",
+							"description": "\"Low Fat Vanilla Yogurt\"",
+							"disabled": true
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "ImjrvE4zOP3jkCmmyuo0H"
+						},
+						{
+							"key": "itemId",
+							"value": "169511541"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch-Replace-CartItem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{myToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"productId\": 4643,\r\n \"quantity\": 9\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{groceryUrl}}/carts/:cartId/items/:itemId",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items",
+						":itemId"
+					],
+					"query": [
+						{
+							"key": "productid",
+							"value": "5478",
+							"description": "\"Low Fat Vanilla Yogurt\"",
+							"disabled": true
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "ImjrvE4zOP3jkCmmyuo0H"
+						},
+						{
+							"key": "itemId",
+							"value": "169511541"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post-Product-Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{myToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cartId\": \"WdfPhz-dEwnY4-SYD_ZPb\",\r\n    \"customerName\": \"Luiz Santos\",\r\n    \"comments\": \"First order for cartid WdfPhz-dEwnY4-SYD_ZPb\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{groceryUrl}}/orders",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"orders"
+					],
+					"query": [
+						{
+							"key": "productid",
+							"value": "5478",
+							"description": "\"Low Fat Vanilla Yogurt\"",
+							"disabled": true
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post-Product-Order-Random",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{myToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cartId\": \"WdfPhz-dEwnY4-SYD_ZPb\",\r\n    \"customerName\": \"{{$randomFullName}}\",\r\n    \"comments\": \"First order for cartid WdfPhz-dEwnY4-SYD_ZPb\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{groceryUrl}}/orders",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"orders"
+					],
+					"query": [
+						{
+							"key": "productid",
+							"value": "5478",
+							"description": "\"Low Fat Vanilla Yogurt\"",
+							"disabled": true
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Product-Orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{myToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{groceryUrl}}/orders",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"orders"
+					],
+					"query": [
+						{
+							"key": "productid",
+							"value": "5478",
+							"description": "\"Low Fat Vanilla Yogurt\"",
+							"disabled": true
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch-Product-Orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{myToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"customerName\": \"Darin Blanda Santos\",\r\n \"comment\": \"Corrected customerName orderId jGRhSQ1XzccCoB7KJ_ysP\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{groceryUrl}}/orders/:orderId",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"query": [
+						{
+							"key": "productid",
+							"value": "5478",
+							"description": "\"Low Fat Vanilla Yogurt\"",
+							"disabled": true
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "jGRhSQ1XzccCoB7KJ_ysP"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Product-Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{groceryUrl}}/products/:productId?product-label=true",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"products",
+						":productId"
+					],
+					"query": [
+						{
+							"key": "product-label",
+							"value": "true"
+						}
+					],
+					"variable": [
+						{
+							"key": "productId",
+							"value": "5478"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Head-Method",
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "{{groceryUrl}}/products/:productId",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"products",
+						":productId"
+					],
+					"query": [
+						{
+							"key": "product-label",
+							"value": "true",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "productId",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete-OrderId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{myToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{groceryUrl}}/orders/:orderId",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"query": [
+						{
+							"key": "productid",
+							"value": "5478",
+							"description": "\"Low Fat Vanilla Yogurt\"",
+							"disabled": true
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "eDPADdmFfeG0QimveK-kX"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Order-One",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Response returned: \", function () {\r",
+							"           console.log (\"Response returned: \", pm.response)\r",
+							"           //pm.expect(pm.response.text()).to.include(\"UP\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{myToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"customerName\": \"Darin Blanda Santos\",\r\n \"comment\": \"Corrected customerName orderId jGRhSQ1XzccCoB7KJ_ysP\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{groceryUrl}}/orders/:orderId",
+					"host": [
+						"{{groceryUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"query": [
+						{
+							"key": "productid",
+							"value": "5478",
+							"description": "\"Low Fat Vanilla Yogurt\"",
+							"disabled": true
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "eDPADdmFfeG0QimveK-kX"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "groceryUrl",
+			"value": "https://simple-grocery-store-api.glitch.me",
+			"type": "string"
+		},
+		{
+			"key": "myToken",
+			"value": "enter your token",
+			"type": "string"
+		},
+		{
+			"key": "cartId2",
+			"value": "eDPADdmFfeG0QimveK-kX",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}
